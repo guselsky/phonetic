@@ -38,11 +38,5 @@ body {
   vertical-align: top;
   padding: 5px; }
 
-#submit-field {
-  height: 30px;
-  font-size: 30px; }
-
-#result {
-  height: 30px;
-  vertical-align: top;
-  padding: 5px; }
+#result-area {
+  text-align: center; }
