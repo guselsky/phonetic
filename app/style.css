@@ -20,6 +20,9 @@ body {
 .heading {
   padding: 30px; }
 
+.subheading {
+  padding: 30px; }
+
 .text-section {
   margin-top: 15px;
   line-height: 1.5;
@@ -29,9 +32,13 @@ body {
   text-align: center;
   margin-top: 30px; }
 
+#input-area {
+  text-align: center;
+  margin-top: 30px; }
+
 #submit-field {
   height: 30px;
-  font-size: 30px; }
+  font-size: 20px; }
 
 #result {
   height: 30px;
@@ -39,4 +46,6 @@ body {
   padding: 5px; }
 
 #result-area {
-  text-align: center; }
+  text-align: center;
+  font-size: 60px;
+  height: 100px; }

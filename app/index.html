@@ -9,11 +9,21 @@
 </head>
 <body>
 <div class="text-container">	
-	<p><a class="learn-more" href="https://de.wikipedia.org/wiki/Phonetische_Ordnung">mehr erfahren</a></p>
+	<p><a class="learn-more" href="https://de.wikipedia.org/wiki/Phonetische_Ordnung">mehr erfahren</a></p>	
+	<h1 class="heading">Tdransformer</h1>
+	<p class="text-section">Wandelt Namen in das phonetische Alphabet um.</p>
+	<h2 class="subheading">Geben Sie einen Namen ein.<br>Bsp: <em>Weininger</em></h1>
+</div>
 
-	<h1 class="heading">Geben Sie einen Namen ein.<br>Bsp: <em>Weininger</em></h1>
+<div id="input-area">
+	<input id="submit-field" type="text" name="inputbox" value="">
+	<input id="result" type="submit" name="submit-button" value="Umwandeln" onClick="resultInput()">
+</div>
 
-	<p class="text-section">Geben Sie die einzelnen Buchstaben oder Buchstabenpaare getrennt in die Felder ein.<br>Bsp: <em>W-ei-n-i-n-g-e-r</em></p>
+<div id="result-area" class="text-section"></div>
+
+
+<div class="text-container">
 
 	<p class="text-section"><strong>Eingaberegeln für ein korrektes Ergebnis:</strong></p>
 
@@ -28,6 +38,7 @@
 		<li>Vokale mit zwei Buchstaben (ae, oe, Ae, Oe, ue, Ue, ui, Ui) werden zusammen in ein Feld eingegeben</li>
 
 
+
 		<li>Stummes H wird nicht eingegeben.</li>
 
 		<li>Wenn c als Z-Laut ausgesprochen wird, wird z eingegeben.</li>
@@ -37,21 +48,16 @@
 		<li>Ph wird in ein Feld eingegeben, wenn es wie F ausgesprochen wird.</li>
 
 		<li>Konsonantenpaare, die nur einen Laut haben, werden zusammen in ein Feld eingegeben (gs, ks, chs, cks).</li>
-	
+
 
 		<li>Cs, Cz, Rs, Rz, Zs werden zusammen in ein Feld eingegeben.</li>
 
 		<li>Sch, Sz, Scs, Scz, Szc, Szs, Szcs, Szcz, Sc, Schc (wenn c nicht als K-Laut ausgesprochen wird) werden zusammen in ein Feld eingegeben.</li>		
 
 	</ol>
-	</div>
 
-	<form id="input-form" name="entry-form" action="" method="get">
-	<input id="submit-field" type="text" name="inputbox" value="">
-	<input id="result" type="button" name="submit-button" value="Umwandeln" onClick="resultInput(this.form)">
-	</form>
-	<div id="result-area" class="text-section"></div>
+</div>
 
-	<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
