@@ -1,8 +1,12 @@
+var ambiguity = false;
+
 function resultInput(inputText) {	
 	
 	var input = tdransform($('#submit-field').val().toLowerCase());
 
-	$('#result-area').text(output);
+	if (ambiguity === false) {
+		$('#result-area').text(output);
+	} 
 
 }
 
@@ -33,17 +37,16 @@ function tdransform(input) {
 	
 	output = capitals(firstLetters) + ' ' +  miniscules(otherLetters);
 	return output;
-}
+};
+
+function capitals(capital){
 
 	var eiGruppe = new RegExp (/(äu)|(aj)|(ej)|(eu)|(ay)|(ey)/);
 	var eGruppe = new RegExp(/(ä)|(ae)|(ö)|(oe)/);
 	var singlesGroup = {
-	singlesExpression: [/d|t/,/j|i/,/b|p/,/c|g|k/,/f|v|w/],
-	replacement: ['D.T','I.J','B.P','C.G.K','F.V.W']
+		singlesExpression: [/d|t/,/j|i/,/b|p/,/c|g|k/,/f|v|w/],
+		replacement: ['D.T','I.J','B.P','C.G.K','F.V.W']
 	};
-
-function capitals(capital){
-
 
 
 	if (capital.length === 3) {
@@ -70,6 +73,15 @@ function capitals(capital){
 
 function miniscules(miniscule) {
 
+	// check if h is silent
+
+	var containsH = new RegExp(/h/);
+
+	if (containsH.test(miniscule)) {
+		ambiguity = true;
+		nachfrage('h');
+	}
+
 	// take word and split into an array of letters
 
 	var minisculeArray = miniscule.split('');
@@ -86,11 +98,13 @@ function miniscules(miniscule) {
 		}
 	}
 
-	//Check if is qu and make an exception
+	// Check if there is a qu and make an exception from the vowel removal
+
+	// Check if there is an ei etc. and make an exception
 
 	// set expressions group
 
-	// check if h is silent
+
 
 	// check if double consonants and remove them
 
@@ -110,4 +124,23 @@ function miniscules(miniscule) {
 	// execute transformation
 
 	return minisculeArray.join('');
+}
+
+	function stummesH() {
+		console.log($('input[name="h-selected"]:checked').val());
+	}
+
+function nachfrage(input) {
+
+	
+
+	var hQuery = '<p>Handelt es sich um ein stummes H?</p>' +
+	'<form><input name="h-selected" type="radio" value="yes">Ja</input>' +
+	'<input name="h-selected" type="radio" value="no">Nein</input>'+
+	'<input type="button" value="Bestätigen" onClick="stummesH()"></input></form>';
+
+
+
+	$('#result-area').html(hQuery);
+
 }
