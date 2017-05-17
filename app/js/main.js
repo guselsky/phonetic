@@ -1,12 +1,9 @@
-var ambiguity = false;
+var ambiguities = [];
 
 function resultInput(inputText) {	
 	
-	var input = tdransform($('#submit-field').val().toLowerCase());
+	tdransform($('#submit-field').val().toLowerCase());
 
-	if (ambiguity === false) {
-		$('#result-area').text(output);
-	} 
 
 }
 
@@ -34,9 +31,22 @@ function tdransform(input) {
 		firstLetters = input.charAt(0);
 		otherLetters = input.substr(1);
 	} 
-	
-	output = capitals(firstLetters) + ' ' +  miniscules(otherLetters);
-	return output;
+
+	head = capitals(firstLetters);
+	tail = miniscules(otherLetters);
+
+	if (ambiguities.indexOf('silentH') != -1) {
+		console.log('found a silent H');
+		$('#result-area').html('<p>Sollte der Name ein stummes H enthalten, so setzen Sie dieses bitte in Klammern.</p>');
+		// output = head + ' ' + otherLetters;
+		// 	return output;
+	} else {
+		output = head + ' ' +  tail;
+		$('#result-area').html('<p>Ihr Ergebnis: ' + output + '</p>');
+		return output;
+	}
+
+
 };
 
 function capitals(capital){
@@ -73,30 +83,35 @@ function capitals(capital){
 
 function miniscules(miniscule) {
 
-	// check if h is silent
+	ambiguities = [];
 
-	var containsH = new RegExp(/h/);
+	// check if h is silent and print out instructions. Then run the function again
 
-	if (containsH.test(miniscule)) {
-		ambiguity = true;
-		nachfrage('h');
+	if(silentHTest(miniscule) === true) {
+		ambiguities.push('silentH')
+		return ambiguities;
+	} else {
+		console.log('doesnt contain an H');
 	}
+
+	
 
 	// take word and split into an array of letters
 
-	var minisculeArray = miniscule.split('');
+	// var minisculeArray = miniscule.split('');
+
 
 	// Sort out double vowels
 
 	var vowels = new RegExp(/(a)|(e)|(i)|(o)|(u)/);
 
-	for (var i = 0; i < minisculeArray.length; i++) {
-		// if (minisculeArray[i] === 'a') {
-			if(vowels.test(minisculeArray[i]) && vowels.test(minisculeArray[i+1])){
+	// for (var i = 0; i < minisculeArray.length; i++) {
+	// 	// if (minisculeArray[i] === 'a') {
+	// 		if(vowels.test(minisculeArray[i]) && vowels.test(minisculeArray[i+1])){
 			
-			minisculeArray.splice(i + 1, 1);	
-		}
-	}
+	// 		minisculeArray.splice(i + 1, 1);	
+	// 	}
+	// }
 
 	// Check if there is a qu and make an exception from the vowel removal
 
@@ -123,24 +138,43 @@ function miniscules(miniscule) {
 
 	// execute transformation
 
-	return minisculeArray.join('');
+	return miniscule;
+
+	// return minisculeArray.join('');
 }
 
-	function stummesH() {
-		console.log($('input[name="h-selected"]:checked').val());
+function silentHTest(miniscule) {
+	var containsH = new RegExp(/h/);
+
+	if (containsH.test(miniscule)) {
+		return true;
+	} else {
+		return false;
 	}
-
-function nachfrage(input) {
-
-	
-
-	var hQuery = '<p>Handelt es sich um ein stummes H?</p>' +
-	'<form><input name="h-selected" type="radio" value="yes">Ja</input>' +
-	'<input name="h-selected" type="radio" value="no">Nein</input>'+
-	'<input type="button" value="Bestätigen" onClick="stummesH()"></input></form>';
-
-
-
-	$('#result-area').html(hQuery);
-
 }
+
+
+
+// function stummesH() {
+// 	if($('input[name="h-selected"]:checked').val() === 'yes') {
+// 		console.log('ist ein stummes H');
+// 		return true;
+// 	} else if ($('input[name="h-selected"]:checked').val() === 'no') {
+// 		console.log('ist kein stummes H');
+// 		return false;
+// 	}
+// }
+
+// // Promts an inquiry if it is a silet h
+// function nachfrage(input) {
+
+// 	var hQuery = '<p>Handelt es sich um ein stummes H?</p>' +
+// 	'<form><input name="h-selected" type="radio" value="yes">Ja</input>' +
+// 	'<input name="h-selected" type="radio" value="no">Nein</input>'+
+// 	'<input type="button" value="Bestätigen" onClick="stummesH()"></input></form>';
+
+// 	if (input === 'h') {
+// 		$('#result-area').html(hQuery);
+// 	} 
+
+// }
