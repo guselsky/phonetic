@@ -1,11 +1,5 @@
+// Create an array to store all ambiguities in letters
 var ambiguities = [];
-
-function resultInput(inputText) {	
-	
-	tdransform($('#submit-field').val().toLowerCase());
-
-
-}
 
 // Trigger transformation on Pressing Enter
 $('#submit-field').keyup(function(event) {
@@ -13,6 +7,10 @@ $('#submit-field').keyup(function(event) {
 		$('#result').click();
 	}
 });
+
+function resultInput(inputText) {	
+	tdransform($('#submit-field').val().toLowerCase());
+}
 
 
 function tdransform(input) {
@@ -35,15 +33,13 @@ function tdransform(input) {
 	head = capitals(firstLetters);
 	tail = miniscules(otherLetters);
 
+	// If there are ambiguities found in the miniscules trigger this logic
 	if (ambiguities.indexOf('silentH') != -1) {
-		console.log('found a silent H');
 		$('#result-area').html('<p>Sollte der Name ein stummes H enthalten, so setzen Sie dieses bitte in Klammern.</p>');
-		// output = head + ' ' + otherLetters;
-		// 	return output;
 	} else {
+		// If there are no more ambiguities, print out the result
 		output = head + ' ' +  tail;
 		$('#result-area').html('<p>Ihr Ergebnis: ' + output + '</p>');
-		return output;
 	}
 
 
@@ -85,21 +81,18 @@ function miniscules(miniscule) {
 
 	ambiguities = [];
 
-	// check if h is silent and print out instructions. Then run the function again
+	// check if h is silent and print out instructions.
 
 	if(silentHTest(miniscule) === true) {
-		ambiguities.push('silentH')
+		ambiguities.push('silentH');
 		return ambiguities;
-	} else {
-		console.log('doesnt contain an H');
-	}
+	} 
 
-	
+	// If the user put the silent h in brackets, remove the brackets with the silent H
+	miniscule = miniscule.replace(/\(h\)/, '');
 
-	// take word and split into an array of letters
-
-	// var minisculeArray = miniscule.split('');
-
+	// take the miniscules string and split into an array of letters
+	var minisculeArray = miniscule.split('');
 
 	// Sort out double vowels
 
@@ -138,15 +131,16 @@ function miniscules(miniscule) {
 
 	// execute transformation
 
-	return miniscule;
+	// return miniscule;
 
-	// return minisculeArray.join('');
+	return minisculeArray.join('');
 }
 
 function silentHTest(miniscule) {
+	var containsBracketH = new RegExp(/\(\h\)/);
 	var containsH = new RegExp(/h/);
 
-	if (containsH.test(miniscule)) {
+	if (containsH.test(miniscule) && !containsBracketH.test(miniscule)) {
 		return true;
 	} else {
 		return false;
